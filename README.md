@@ -1,42 +1,61 @@
-# Scoop Bucket Template
+# DotaSense Scoop Bucket
 
-<!-- Uncomment the following line after replacing placeholders -->
-<!-- [![Tests](https://github.com/<username>/<bucketname>/actions/workflows/ci.yml/badge.svg)](https://github.com/<username>/<bucketname>/actions/workflows/ci.yml) [![Excavator](https://github.com/<username>/<bucketname>/actions/workflows/excavator.yml/badge.svg)](https://github.com/<username>/<bucketname>/actions/workflows/excavator.yml) -->
+[![Tests](https://github.com/Shjabbour/scoop-dotasense/actions/workflows/ci.yml/badge.svg)](https://github.com/Shjabbour/scoop-dotasense/actions/workflows/ci.yml)
+[![Excavator](https://github.com/Shjabbour/scoop-dotasense/actions/workflows/excavator.yml/badge.svg)](https://github.com/Shjabbour/scoop-dotasense/actions/workflows/excavator.yml)
 
-Template bucket for [Scoop](https://scoop.sh), the Windows command-line installer.
+Official vendor-maintained [Scoop](https://scoop.sh) bucket for
+[DotaSense](https://dotasense.com/), a free Dota 2 timer app for Windows.
+DotaSense provides audio and visual reminders for camp stacks, runes, Roshan,
+Tormentor, siege creeps, and custom events. The Windows app also includes an
+optional always-on-top overlay and local Valve Game State Integration clock
+synchronization.
 
-## How do I use this template?
+## Install
 
-1. Generate your own copy of this repository with the "Use this template"
-   button.
-2. Allow all GitHub Actions:
-   - Navigate to `Settings` - `Actions` - `General` - `Actions permissions`.
-   - Select `Allow all actions and reusable workflows`.
-   - Then `Save`.
-3. Workflow permissions:
-   - Navigate to `Settings` - `Actions` - `General` - `Workflow permissions`.
-   - Ensure `Read repository contents and packages permissions` is selected.
-   - Then `Save`.
-4. Document the bucket in `README.md`.
-5. Replace the placeholder repository string in `bin/auto-pr.ps1`.
-6. Create new manifests by copying `bucket/app-name.json.template` to
-   `bucket/<app-name>.json`.
-7. Commit and push changes.
-8. If you'd like your bucket to be indexed on `https://scoop.sh`, add the
-   topic `scoop-bucket` to your repository.
-
-## How do I install these manifests?
-
-After manifests have been committed and pushed, run the following:
-
-```pwsh
-scoop bucket add <bucketname> https://github.com/<username>/<bucketname>
-scoop install <bucketname>/<manifestname>
+```powershell
+scoop bucket add dotasense https://github.com/Shjabbour/scoop-dotasense
+scoop install dotasense/dotasense
 ```
 
-## How do I contribute new manifests?
+The manifest downloads the exact versioned release from the public
+[DotaSense release repository](https://github.com/Shjabbour/dota-releases/releases),
+verifies its SHA-256 checksum, and extracts the Electron app without running the
+NSIS installer.
 
-To make a new manifest contribution, please read the [Contributing
-Guide](https://github.com/ScoopInstaller/.github/blob/main/.github/CONTRIBUTING.md)
-and [App Manifests](https://github.com/ScoopInstaller/Scoop/wiki/App-Manifests)
-wiki page.
+## Update
+
+```powershell
+scoop update
+scoop update dotasense
+```
+
+The bucket checks the public GitHub release feed and uses versioned download
+URLs so updates remain reproducible.
+
+## Current Windows release boundary
+
+- Windows 10 or Windows 11, 64-bit only.
+- The timer core is free; optional Pro features are separate.
+- The current installer and extracted application are Authenticode-signed with
+  Microsoft Artifact Signing. Scoop also verifies the published SHA-256 before
+  extraction; review the
+  [release evidence](https://dotasense.com/download#windows-release-evidence)
+  before running it.
+- DotaSense does not read or modify protected game memory, inject code, or alter
+  Dota 2 binaries. Optional match-clock synchronization uses Valve's local Game
+  State Integration feed.
+- The app stores preferences under the normal Windows user profile. Removing the
+  Scoop package can leave those preferences in place.
+
+This is a DotaSense-owned bucket, not an entry in Scoop's community Extras
+catalog. The [Extras package proposal](https://github.com/ScoopInstaller/Extras/issues/18634)
+is following Scoop's separate issue-first review process.
+
+## Help
+
+- [DotaSense setup and safety FAQ](https://dotasense.com/faq)
+- [Overlay setup guide](https://dotasense.com/guides/overlay-setup)
+- [Report a packaging problem](https://github.com/Shjabbour/scoop-dotasense/issues/new/choose)
+
+DotaSense is an independent third-party project and is not affiliated with,
+sponsored by, or endorsed by Valve Corporation.
