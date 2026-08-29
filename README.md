@@ -39,7 +39,7 @@ URLs so updates remain reproducible.
 - The current installer and extracted application are Authenticode-signed with
   Microsoft Artifact Signing. Scoop also verifies the published SHA-256 before
   extraction; review the
-  [release evidence](https://dotasense.com/download#windows-release-evidence)
+  [exact v1.4.36 release](https://github.com/Shjabbour/dota-releases/releases/tag/v1.4.36)
   before running it.
 - DotaSense does not read or modify protected game memory, inject code, or alter
   Dota 2 binaries. Optional match-clock synchronization uses Valve's local Game
